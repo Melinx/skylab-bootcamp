@@ -44,7 +44,6 @@ function addElement(){
 				results[i] = results[i].toFixed(3)
 			}
 	}
-	
     	
 }
 
