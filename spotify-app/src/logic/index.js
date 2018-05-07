@@ -1,20 +1,32 @@
 
+
 const logic = {
     url: 'https://api.spotify.com/v1',
     token: '',
     headers() {
-        headers: { Authorization: `Bearer ${token}` }
+        return {
+            headers: { Authorization: `Bearer ${this.token}` }
+        }
     },
 
-    searchAlbum (album) {
+    searchAlbum(album) {
         return (
-            fetch(`${this.url}/search?q=${album}&type=album`, headers)
-                .then(data => data.json())
-                .then(data => data.items)
+            fetch(`${this.url}/search?q=${album}&type=album`, this.headers())
+                .then(resp => resp.json())
+                .then(data => data.albums.items)
         )
     },
 
+    getAlbumInfo(id){
+        return (
+            fetch(`${this.url}/albums/${id}`, this.headers())
+                .then(resp => resp.json())
+                .then(data => data.id.items)
+        )
+
+    }
+
 }
 
-export default 'logic'
+export default logic
 
